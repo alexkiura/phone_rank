@@ -19,13 +19,17 @@ var routeUser = require("./app/routes/users");
 var Phone = require("./app/models/phone_schema");
 var User = require("./app/models/user_schema");
 
+
 mongoose.connect(
-  //"mongodb://alex:13bibleverses@ds061464.mongolab.com:61464/phone_shop");
-  "mongodb://localhost/api_test");
+  //"mongodb://localhost/api_test");
+  "mongodb://alex:mongolo@ds051903.mongolab.com:51903/p_shop");
 
-// create a secret to create tokens with 
-
-
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (){
+  console.log("I opened successfully");
+}); 
+  
 // for grabbing info from POST requests
 app.use(bodyParser.urlencoded({
   extended: true
