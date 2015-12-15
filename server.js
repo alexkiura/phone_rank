@@ -3,6 +3,7 @@
 var mongoose = require("mongoose");
 var express = require("express");
 var app = express();
+var path = require("path");
 var bodyParser = require("body-parser");
 var morgan = require("morgan");
 
@@ -105,6 +106,9 @@ router.route("/users/:user_id")
 router.get("/me", routeUser.getDecoded);
 // register the routes
 app.use("/api", router);
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname + "/public/app/views/index.html"));
+})
 
 //start server
 var port = process.env.PORT || 8080;
