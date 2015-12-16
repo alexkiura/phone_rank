@@ -111,7 +111,9 @@ router.get("/me", routeUser.getDecoded);
 // register the routes
 app.use("/api", router);
 app.get("*", function(req, res) {
+  //console.log(path.join(__dirname + "/public/app/views/index.html"));
   res.sendFile(path.join(__dirname + "/public/app/views/index.html"));
+
 })
 
 //start server
