@@ -8,3 +8,7 @@ header .navbar {
 	border-radius: 0;
 }
 		
+#home {
+	float: center;
+	font-size: 34px;
+}

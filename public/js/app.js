@@ -4,6 +4,6 @@ angular.module('phone_shop', [
 	'app.routes',
 	'authService',
 	'mainCtrl',
-	'userCtrl',
+	//'userCtrl',
 	'userService'
 	]);	

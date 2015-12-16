@@ -30,6 +30,8 @@ db.once('open', function (){
   console.log("I opened successfully");
 }); 
   
+app.use(express.static(path.join(__dirname, 'public')));
+
 // for grabbing info from POST requests
 app.use(bodyParser.urlencoded({
   extended: true
@@ -110,9 +112,11 @@ router.route("/users/:user_id")
 router.get("/me", routeUser.getDecoded);
 // register the routes
 app.use("/api", router);
+
+
 app.get("*", function(req, res) {
   //console.log(path.join(__dirname + "/public/app/views/index.html"));
-  res.sendFile(path.join(__dirname + "/public/app/views/index.html"));
+  res.sendFile(path.join(__dirname + "/public/index.html"));
 
 })
 

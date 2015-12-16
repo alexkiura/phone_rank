@@ -13,7 +13,7 @@ angular.module('mainCtrl', [])
 
         // get user info on route change
         Auth.getUser()
-          .success(function(data) {
+          .then(function(data) {
             vm.user = data;
           });
       });
