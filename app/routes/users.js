@@ -98,11 +98,12 @@ exports.authenticateUser = function(req, res) {
   };
 
   var userRes = {};
-  
+
   if (!authData.username) {
     userRes.success = false;
     userRes.message =
       "Authentication failed. You did not provide a username";
+
   }
 
   User.findOne({
@@ -123,15 +124,14 @@ exports.authenticateUser = function(req, res) {
           "Authentication failed. User not found";
       } else if (user) {
         // check if password matches
-        if (authData.password) {
-          var validPassword = user.comparePassword(
-            authData.password);
-
-        } else {
+        if (!authData.password) {
           userRes.success = false;
           userRes.message =
-            "Authentication failed. You did not provide a password";
-        }
+            "Authentication failed. You did not provide a password";         
+        } 
+        
+        var validPassword = user.comparePassword(
+            authData.password);
 
         if (!validPassword) {
           userRes.success = false;
@@ -155,7 +155,7 @@ exports.authenticateUser = function(req, res) {
         }
       }
     });
-  res.json(userRes);
+  return res.json(userRes);
 };
 
 exports.verifyToken = function(req, res, next) {
