@@ -13,8 +13,9 @@ angular.module('mainCtrl', [])
 
         // get user info on route change
         Auth.getUser()
-          .then(function(data) {
+          .success(function(data) {
             vm.user = data;
+            console.log("The logged in user is: " + data);
           });
       });
 

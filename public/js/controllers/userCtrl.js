@@ -18,7 +18,7 @@ angular.module('userCtrl', ['userService'])
 
 		// bind users that come back to vm.users
 		vm.users = data;
-		console.log(data);
+		
 	});
 	
 })
