@@ -17,6 +17,12 @@ angular.module('app.routes', ['ngRoute'])
         templateUrl: 'views/users.html',
         controller: 'userController',
         controllerAs: 'user'
+      })
+
+      .when('/users/create', {
+        templateUrl: 'views/user.html',
+        controller: 'userCreateController',
+        controllerAs: 'user'
       });
 
 
