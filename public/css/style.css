@@ -1,11 +1,11 @@
 main {
-	padding-top: 80px;
+	padding-top: 30px;
 }
 
 /* HEADER  
 ================== */
 header .navbar {
-	border-radius: 0;
+	border-radius: 5px;
 }
 		
 #home {
