@@ -21,11 +21,22 @@ angular.module('mainCtrl', [])
     // function to handle login 
     vm.doLogin = function() {
       // call the Auth.login function
-      Auth.login(vm.loginData.username, vm.loginData.password)
+      vm.processing = true;
+      vm.error = ' ';
+
+      Auth.login(vm.loginData.username, vm.loginData
+          .password)
         .success(function(data) {
+          vm.processing = false;
           // if a user specifically logs in, redirect to users page
-          $location.path('/users');
+          if (data.success) {
+            $location.path('/users');
+          } else
+            vm.error = data.message;
+
         });
+
+
     };
 
     // function to handle logging out 

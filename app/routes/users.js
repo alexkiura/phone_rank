@@ -1,8 +1,8 @@
 var User = require("../models/user_schema");
-var jwt = require("jsonwebtoken"); 
+var jwt = require("jsonwebtoken");
 var uuid = require("node-uuid");
 var supersecret = //uuid.v4();
-"api_test45727617$randomsecretcode";
+  "api_test45727617$randomsecretcode";
 
 exports.postUser = function(req, res) {
   // new instance of the user model
@@ -92,28 +92,51 @@ exports.deleteUser = function(req, res) {
 // user authentication
 exports.authenticateUser = function(req, res) {
   // find the user and select the username and password explcitly
+  var authData = {
+    username: req.body.username,
+    password: req.body.password
+  };
+
+  var userRes = {};
+  
+  if (!authData.username) {
+    userRes.success = false;
+    userRes.message =
+      "Authentication failed. You did not provide a username";
+  }
 
   User.findOne({
-      username: req.body.username // get the user with the provided username
+      username: authData.username // get the user with the provided username
     }, "name username password", // get me his name, username and ofcourse password
     function(err, user) { // and lastly, do as i say :)
-      if (err) throw err;
+      if (err) {
+        userRes.success = false;
+        userRes.message =
+          "Authentication failed. Please try again";
+        throw err;
+      }
 
       // no user with that username was found
       if (!user) {
-        res.json({
-          success: false,
-          message: "Authentication failed. User not found"
-        });
+        userRes.success = false;
+        userRes.message =
+          "Authentication failed. User not found";
       } else if (user) {
         // check if password matches
-        var validPassword = user.comparePassword(
-          req.body.password);
+        if (authData.password) {
+          var validPassword = user.comparePassword(
+            authData.password);
+
+        } else {
+          userRes.success = false;
+          userRes.message =
+            "Authentication failed. You did not provide a password";
+        }
+
         if (!validPassword) {
-          res.json({
-            success: false,
-            message: "Authentication failed. Wrong password"
-          })
+          userRes.success = false;
+          userRes.message =
+            "Authentication failed. Wrong password"
         } else {
           // if password found
           //create a token
@@ -125,53 +148,55 @@ exports.authenticateUser = function(req, res) {
           });
 
           // return the info as token including token
-          res.json({
-            success: true,
-            message: "Enjoy your token",
-            token: token
-          });
+          userRes.success = true;
+          userRes.message =
+            "Enjoy your token";
+          userRes.token = token;
         }
       }
     });
+  res.json(userRes);
 };
 
 exports.verifyToken = function(req, res, next) {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.param(
-      "token") || req.headers["x-access-token"];
+    "token") || req.headers["x-access-token"];
 
   // decode token
   if (token) {
-  	// verify secret and exp
-  	jwt.verify(token, supersecret, function(err,  decoded) {
-  		if (err) {
-  			return res.status(403).send({
-  				success: false,
-  				message: "Failed to authenticate token."
-  			});
-  		} else {
-  			// save to request for use in other routes
-  			req.decoded = decoded;
-  			// show the keys of the token
-  			for (key in decoded) {
-  				console.log("key: " + key);
-  				console.log("value: " + decoded[key]);
-  			}
-  			
+    // verify secret and exp
+    jwt.verify(token, supersecret, function(err,
+      decoded) {
+      if (err) {
+        return res.status(403).send({
+          success: false,
+          message: "Failed to authenticate token."
+        });
+      } else {
+        // save to request for use in other routes
+        req.decoded = decoded;
+        // show the keys of the token
+        for (key in decoded) {
+          console.log("key: " + key);
+          console.log("value: " + decoded[
+            key]);
+        }
 
-  			next();
-  		}
-  	});
+
+        next();
+      }
+    });
   } else {
-  	// no token
-  	// return an access forbidden request
-  	return res.status(403).send({
-  		success: false,
-  		message: "Access denied. Please provide a token"
-  	});
-  } 
+    // no token
+    // return an access forbidden request
+    return res.status(403).send({
+      success: false,
+      message: "Access denied. Please provide a token"
+    });
+  }
 }
 
 exports.getDecoded = function(req, res) {
-	res.send(req.decoded);
+  res.send(req.decoded);
 };
