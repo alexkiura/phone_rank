@@ -104,6 +104,8 @@ exports.authenticateUser = function(req, res) {
     userRes.message =
       "Authentication failed. You did not provide a username";
 
+      res.send(userRes);
+
   }
 
   User.findOne({
@@ -136,7 +138,8 @@ exports.authenticateUser = function(req, res) {
         if (!validPassword) {
           userRes.success = false;
           userRes.message =
-            "Authentication failed. Wrong password"
+            "Authentication failed. Wrong password";
+            res.json(userRes);
         } else {
           // if password found
           //create a token
@@ -152,10 +155,10 @@ exports.authenticateUser = function(req, res) {
           userRes.message =
             "Enjoy your token";
           userRes.token = token;
+          res.json(userRes);
         }
       }
-    });
-  return res.json(userRes);
+    });  
 };
 
 exports.verifyToken = function(req, res, next) {

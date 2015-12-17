@@ -10,6 +10,13 @@ angular.module('app.routes', ['ngRoute'])
         templateUrl: 'views/login.html',
         controller: 'mainController',
         controllerAs: 'login',
+      })
+
+      // show users page
+      .when('/users', {
+        templateUrl: 'views/users.html',
+        controller: 'userController',
+        controllerAs: 'user'
       });
 
 

@@ -22,15 +22,18 @@ var User = require("./app/models/user_schema");
 
 mongoose.connect(
   //"mongodb://localhost/api_test");
-  "mongodb://alex:mongolo@ds051903.mongolab.com:51903/p_shop");
+  "mongodb://alex:mongolo@ds051903.mongolab.com:51903/p_shop"
+);
 
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (){
+db.on('error', console.error.bind(console,
+  'connection error:'));
+db.once('open', function() {
   console.log("I opened successfully");
-}); 
-  
-app.use(express.static(path.join(__dirname, 'public')));
+});
+
+app.use(express.static(path.join(__dirname,
+  'public')));
 
 // for grabbing info from POST requests
 app.use(bodyParser.urlencoded({
@@ -116,11 +119,12 @@ app.use("/api", router);
 
 app.get("*", function(req, res) {
   //console.log(path.join(__dirname + "/public/app/views/index.html"));
-  res.sendFile(path.join(__dirname + "/public/index.html"));
+  res.sendFile(path.join(__dirname +
+    "/public/index.html"));
 
 })
 
 //start server
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8081;
 app.listen(port);
 console.log("listening on port " + port);
