@@ -33,3 +33,10 @@ header .navbar {
 	from {-moz-transformation:rotate(0deg);}
 	to {-moz-transform:rotate(360deg);}
 }
+
+/* show and hide */
+.show-hide-message.ng-hide-remove {
+	-webkit-animation:zoomIn 0.3s both ease;
+	-moz-animation:zoomIn 0.3s both ease;
+	animation:zoomIn 0.3s both ease;
+} 

@@ -25,18 +25,19 @@ angular.module('userCtrl', ['userService'])
     vm.processing = true;
 
     User.delete(id)
-      .success(function(data) {
+      .then(function(response) {
         // get all users to update the table
         User.all()
-          .success(function(data) {
-            vm.processing = true;
-            vm.users = data;
+          .then(function(response) {
+            vm.processing = false;
+            vm.users = response.data;
           });
       });
   }
 
 })
 
+// controller applied ti create a user
 .controller('userCreateController', function(User) {
   var vm = this;
   // variable to hide/ show elements of the view
@@ -52,12 +53,46 @@ angular.module('userCtrl', ['userService'])
 
     // use the create function in the userService
     User.create(vm.userData)
-      .success(function(data) {
+      .then(function(response) {
         vm.processing = false;
 
         // clear the form
         vm.userData = {};
-        vm.message = data.message;
+        vm.message = response.data.message;
       });
   };
+})
+
+// controller applied to edit the user
+.controller('userEditController', function($routeParams, User){
+	var vm = this;
+	vm.type = 'edit';
+
+	// get the user data for the user we want to edit
+	User.get($routeParams.user_id)
+	.then(function(response) {
+		vm.userData = response.data;
+	});
+
+	// function to save the user
+	vm.saveUser = function() {
+		vm.processing = true;
+		vm.message = '';
+
+		// call the userServie function to update
+		User.update($routeParams.user_id, vm.userData)
+			.then(function(response) {
+				vm.processing = false;
+
+				// clear the form
+				vm.userData = {};
+
+				// bind the message from the api to vm.message
+				vm.message = response.data.message;
+
+			})
+	}
+
+
+
 })

@@ -21,7 +21,7 @@ var User = require("./app/models/user_schema");
 
 
 mongoose.connect(
-  //"mongodb://localhost/api_test");
+  //"mongodb://localhost/api_test"
   "mongodb://alex:mongolo@ds051903.mongolab.com:51903/p_shop"
 );
 
@@ -29,7 +29,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console,
   'connection error:'));
 db.once('open', function() {
-  console.log("I opened successfully");
+  console.log("Connected successfully to database:");
 });
 
 app.use(express.static(path.join(__dirname,
@@ -125,6 +125,6 @@ app.get("*", function(req, res) {
 })
 
 //start server
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 1738;
 app.listen(port);
 console.log("listening on port " + port);

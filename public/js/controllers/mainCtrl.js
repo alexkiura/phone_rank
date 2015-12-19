@@ -13,9 +13,9 @@ angular.module('mainCtrl', [])
 
         // get user info on route change
         Auth.getUser()
-          .success(function(data) {
-            vm.user = data;
-            console.log("The logged in user is: " + data);
+          .then(function(response) {
+            vm.user = response.data;
+            console.log("The logged in user is: " + vm.user.name);
           });
       });
 
@@ -27,10 +27,10 @@ angular.module('mainCtrl', [])
 
       Auth.login(vm.loginData.username, vm.loginData
           .password)
-        .success(function(data) {
+        .then(function(response) {
           vm.processing = false;
           // if a user specifically logs in, redirect to users page
-          if (data.success) {
+          if (response.data.success) {
             $location.path('/users');
           } else
             vm.error = data.message;
