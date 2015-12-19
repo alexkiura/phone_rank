@@ -4,15 +4,30 @@ var mSchema  = mongoose.Schema;
 var bcrypt = require("bcrypt-nodejs");
 
 // USer schema
+
+// Define a phone schema that will be embedded in the userSchema
+
+var PhoneSchema = new mSchema({
+	name: String,
+	os: String,
+	screenSize: Number,
+	rating: Number
+});
+
+
+
+
 var UserSchema = new mSchema({
 	name: String,
-	username: { type: String, required: true, index:{unique: true}},
 	// the index:{unique:true} attribute ensures that the username 
 	// field is unique
-	password: { type: String, required: true, select: false}
+	username: { type: String, required: true, index:{unique: true}},	
+		// the select:false attribute ensures the password 
+	// is not returned when we query users unless explicitly requested	
+	password: { type: String, required: true, select: false},
+	// the phones saved by the user
+	phones: [PhoneSchema]
 
-	// the select:false attribute ensures the password 
-	// is not returned when we query users unless explicitly requested
 });
 
 // hash the password before the user is saved
