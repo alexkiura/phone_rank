@@ -1,4 +1,6 @@
-var User = require("../models/user_schema");
+var User = require("../models/user_schema").UserModel;
+var Phone = require("../models/user_schema").PhoneModel;
+var phones = require('./phones');
 var jwt = require("jsonwebtoken");
 var uuid = require("node-uuid");
 var supersecret = //uuid.v4();
@@ -12,6 +14,8 @@ exports.postUser = function(req, res) {
   user.name = req.body.name;
   user.username = req.body.username;
   user.password = req.body.password;
+  //user.phones = ["fuck"];
+
 
   // save the user 
   user.save(function(err) {
@@ -65,6 +69,7 @@ exports.putUser = function(req, res) {
       req.body.username;
     if (req.body.password) user.password =
       req.body.password;
+    
 
     // save the new user details
     user.save(function(err) {

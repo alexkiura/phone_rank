@@ -8,14 +8,11 @@ var bcrypt = require("bcrypt-nodejs");
 // Define a phone schema that will be embedded in the userSchema
 
 var PhoneSchema = new mSchema({
-	name: String,
+	phone_name: String,
 	os: String,
-	screenSize: Number,
+	screen_size: Number,
 	rating: Number
 });
-
-
-
 
 var UserSchema = new mSchema({
 	name: String,
@@ -54,7 +51,9 @@ UserSchema.methods.comparePassword = function(password) {
 	return bcrypt.compareSync(password, user.password);
 };
 
+exports.UserModel= mongoose.model('User', UserSchema);
+exports.PhoneModel = mongoose.model('Phone', PhoneSchema);
 // return the model
-module.exports = mongoose.model("User", UserSchema);
+
 
 ///////////////////////////////////////////////////////////////////////////////////////

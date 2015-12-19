@@ -1,0 +1,42 @@
+<div class="page-header">
+    <h1>
+	Phones
+	<a href="/users/create" class="btn btn-default">
+		<span class="glyphicon glyphicon-plus"></span>
+		New Phone
+	</a>
+	</h1>
+</div>
+<!-- Loading message -->
+<div class="jumbotron text-center" ng-show="user.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading Phones...</p>
+</div>
+<table class="table table-bordered table-striped" ng-show="user.users.phones">
+    <thead>
+        <tr>
+            
+            <th>Name</th>
+            <th>Operating system</th>
+            <th>Screen Size</th>
+            <th>Rating (out of 10)</th>
+            <th class="col-sm-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- loop over the users -->
+        <tr ng-repeat="phone in user.users.phones">
+            
+            <td>{{phone.name}}</td>
+            <td>{{phone.os}}</td>
+            <td>{{phone.screenSize}}</td>
+            <td>{{phone.rating}}</td>
+
+            <td class="col-sm-2">
+                <a ng-href="/users/{{person._id}}" class="btn btn-primary">Edit</a>
+                <a href="#" ng-click="user.deleteUser(person._id)" class="btn btn-danger">Delete</a>
+            </td>
+
+        </tr>
+    </tbody>
+</table>

@@ -8,6 +8,11 @@ angular.module('userService', [])
       return $http.get('/api/users/' + id);
     };
 
+    // get a user's phones
+    userFactory.getPhones = function(id) {
+      return $http.get('/api');
+    }
+
     // get all users
     userFactory.all = function() {
       return $http.get('/api/users/');

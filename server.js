@@ -16,8 +16,8 @@ var routeUser = require("./app/routes/users");
 
 
 // pull in the schemas
-var Phone = require("./app/models/phone_schema");
-var User = require("./app/models/user_schema");
+var Phone = require("./app/models/user_schema").PhoneModel;
+var User = require("./app/models/user_schema").UserModel;
 
 
 mongoose.connect(
@@ -29,7 +29,8 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console,
   'connection error:'));
 db.once('open', function() {
-  console.log("Connected successfully to database:");
+  console.log(
+    "Connected successfully to database:");
 });
 
 app.use(express.static(path.join(__dirname,
@@ -79,26 +80,26 @@ router.get("/", function(req, res) {
 });
 
 // /api/phones
-router.route("/phones")
+router.route("/users/:user_id/phones")
   .post(routePhone.postPhone)
 
 // get all phones (localhost:8080/api/phones)
-.get(routePhone.getPhones)
+  .get(routePhone.getPhones)
 
 
 // delete all fucking phones
-.delete(routePhone.deletePhones);
+  //.delete(routePhone.deletePhones);
 
-router.route("/phones/:phone_id")
+router.route("/users/:user_id/phones/:phone_id")
   // get the phone with this id. 
   //Accessed at GET http://localhost:8080/api/phones/:phone_id
-  .get(routePhone.getPhone)
+  //.get(routePhone.getPhone)
 
 //update the phone that has this id
 //Accessed by PUT http://localhost:8080/api/phones/:phone_id
-.put(routePhone.putPhone)
+//.put(routePhone.putPhone)
 
-.delete(routePhone.deletePhone);
+//.delete(routePhone.deletePhone);
 
 // api/users
 router.route("/users")
@@ -111,6 +112,7 @@ router.route("/users/:user_id")
   .get(routeUser.getUser)
   .put(routeUser.putUser)
   .delete(routeUser.deleteUser);
+
 
 router.get("/me", routeUser.getDecoded);
 // register the routes

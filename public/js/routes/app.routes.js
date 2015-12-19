@@ -29,6 +29,11 @@ angular.module('app.routes', ['ngRoute'])
         templateUrl: 'views/user.html',
         controller: 'userEditController',
         controllerAs: 'user'
+      })
+      .when('users/:user_id/phones', {
+        templateUrl: 'views/phones.html',
+        controller: 'userPhoneController',
+        controllerAs: 'phones'
       });
 
 
