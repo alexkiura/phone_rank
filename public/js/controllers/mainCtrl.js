@@ -31,7 +31,9 @@ angular.module('mainCtrl', [])
           vm.processing = false;
           // if a user specifically logs in, redirect to users page
           if (response.data.success) {
-            $location.path('/users');
+            console.log("Logging the response: ");
+            console.log(response.data);
+            $location.path('/users/' + response.data.id + '/phones/' );
           } else
             vm.error = data.message;
 

@@ -64,35 +64,48 @@ angular.module('userCtrl', ['userService'])
 })
 
 // controller applied to edit the user
-.controller('userEditController', function($routeParams, User){
-	var vm = this;
-	vm.type = 'edit';
+.controller('userEditController', function(
+  $routeParams, User) {
+  var vm = this;
+  vm.type = 'edit';
 
-	// get the user data for the user we want to edit
-	User.get($routeParams.user_id)
-	.then(function(response) {
-		vm.userData = response.data;
-	});
+  // get the user data for the user we want to edit
+  User.get($routeParams.user_id)
+    .then(function(response) {
+      vm.userData = response.data;
+    });
 
-	// function to save the user
-	vm.saveUser = function() {
-		vm.processing = true;
-		vm.message = '';
+  // function to save the user
+  vm.saveUser = function() {
+    vm.processing = true;
+    vm.message = '';
 
-		// call the userServie function to update
-		User.update($routeParams.user_id, vm.userData)
-			.then(function(response) {
-				vm.processing = false;
+    // call the userServie function to update
+    User.update($routeParams.user_id, vm.userData)
+      .then(function(response) {
+        vm.processing = false;
 
-				// clear the form
-				vm.userData = {};
+        // clear the form
+        vm.userData = {};
 
-				// bind the message from the api to vm.message
-				vm.message = response.data.message;
+        // bind the message from the api to vm.message
+        vm.message = response.data.message;
 
-			})
-	}
+      })
+  }
 
+})
 
-
+.controller('userPhoneController', function(
+  $routeParams, User) {
+  var vm = this;
+  //vm.processing = true; 
+  
+    User.getPhones($routeParams.user_id)
+    .then(function(response) {
+      console.log("Logging phones");
+      console.log(response.data);
+      vm.phones = response.data;
+    });
+ 
 })

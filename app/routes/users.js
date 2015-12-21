@@ -160,6 +160,7 @@ exports.authenticateUser = function(req, res) {
           userRes.message =
             "Enjoy your token";
           userRes.token = token;
+          userRes.id = user._id;
           res.json(userRes);
         }
       }
@@ -185,13 +186,6 @@ exports.verifyToken = function(req, res, next) {
         // save to request for use in other routes
         req.decoded = decoded;
         // show the keys of the token
-        for (key in decoded) {
-          console.log("key: " + key);
-          console.log("value: " + decoded[
-            key]);
-        }
-
-
         next();
       }
     });

@@ -10,7 +10,7 @@ angular.module('userService', [])
 
     // get a user's phones
     userFactory.getPhones = function(id) {
-      return $http.get('/api');
+      return $http.get('/api/users/' + id + "/phones/");
     }
 
     // get all users
@@ -34,6 +34,8 @@ angular.module('userService', [])
     userFactory.delete = function(id) {
       return $http.delete('/api/users/' + id);
     };
+
+    // 
 
     return userFactory;
 

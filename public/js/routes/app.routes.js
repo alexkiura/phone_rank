@@ -30,10 +30,10 @@ angular.module('app.routes', ['ngRoute'])
         controller: 'userEditController',
         controllerAs: 'user'
       })
-      .when('users/:user_id/phones', {
+      .when('/users/:user_id/phones', {
         templateUrl: 'views/phones.html',
         controller: 'userPhoneController',
-        controllerAs: 'phones'
+        controllerAs: 'user'
       });
 
 
