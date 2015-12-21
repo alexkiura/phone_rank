@@ -34,7 +34,14 @@ angular.module('app.routes', ['ngRoute'])
         templateUrl: 'views/phones.html',
         controller: 'userPhoneController',
         controllerAs: 'user'
-      });
+      })
+
+      // .when('user/:user_id/phones/create', {
+      //   templateUrl: 'views/phone/html',
+      //   controller: 'userCreateController',
+      //   controllerAs 'user'
+      // })
+;
 
 
 

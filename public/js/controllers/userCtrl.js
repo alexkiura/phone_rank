@@ -100,12 +100,12 @@ angular.module('userCtrl', ['userService'])
   $routeParams, User) {
   var vm = this;
   //vm.processing = true; 
-  
-    User.getPhones($routeParams.user_id)
+
+  User.getPhones($routeParams.user_id)
     .then(function(response) {
       console.log("Logging phones");
       console.log(response.data);
       vm.phones = response.data;
     });
- 
+
 })

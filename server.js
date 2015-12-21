@@ -84,27 +84,27 @@ router.route("/users/:user_id/phones")
   .post(routePhone.postPhone)
 
 // get all phones (localhost:8080/api/phones)
-  .get(routePhone.getPhones)
+.get(routePhone.getPhones)
 
 
 // delete all fucking phones
-  //.delete(routePhone.deletePhones);
+//.delete(routePhone.deletePhones);
 
 router.route("/users/:user_id/phones/:phone_id")
   // get the phone with this id. 
   //Accessed at GET http://localhost:8080/api/phones/:phone_id
-  //.get(routePhone.getPhone)
-
-//update the phone that has this id
-//Accessed by PUT http://localhost:8080/api/phones/:phone_id
-//.put(routePhone.putPhone)
-
-//.delete(routePhone.deletePhone);
+  .get(routePhone.getPhone)
+  //update the phone that has this id
+  //Accessed by PUT http://localhost:8080/api/phones/:phone_id
+  .put(routePhone.putPhone)
+  // delete the phone
+  .delete(routePhone.deletePhone);
 
 // api/users
 router.route("/users")
-  .post(routeUser.postUser)
-  .get(routeUser.getUsers);
+  .get(routeUser.getUsers)
+  .post(routeUser.postUser);
+
 
 // api/users/:user_id
 router.route("/users/:user_id")

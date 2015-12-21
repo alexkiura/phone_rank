@@ -4,13 +4,21 @@ angular.module('userService', [])
     var userFactory = {};
 
     // get a single user
-    userFactory.get = function(id) {
-      return $http.get('/api/users/' + id);
+    userFactory.get = function(user_id) {
+      return $http.get('/api/users/' + user_id);
     };
 
     // get a user's phones
-    userFactory.getPhones = function(id) {
-      return $http.get('/api/users/' + id + "/phones/");
+    userFactory.getPhones = function(user_id) {
+      return $http.get('/api/users/' + user_id + '/phones/');
+    };
+
+    userFactory.createPhone = function(user_id) {
+      return $http.post('/api/users/' + user_id + 'phones/');
+    }
+
+    userFactory.updatePhone = function(user_id, phone_id) {
+      return $http.put('/api/users' + user_id + '/phones/' + phone_id);
     }
 
     // get all users
@@ -25,14 +33,14 @@ angular.module('userService', [])
     };
 
     // update a user
-    userFactory.update = function(id, userData) {
-      return $http.put('/api/users/' + id,
+    userFactory.update = function(user_id, userData) {
+      return $http.put('/api/users/' + user_id,
         userData);
     };
 
     // delete a user
-    userFactory.delete = function(id) {
-      return $http.delete('/api/users/' + id);
+    userFactory.delete = function(user_id) {
+      return $http.delete('/api/users/' + user_id);
     };
 
     // 
