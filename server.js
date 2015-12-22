@@ -69,17 +69,11 @@ router.get('/', function(req, res) {
 // /api/phones
 router.route('/users/:user_id/phones')
   .post(routePhone.postPhone)
+  .get(routePhone.getPhones)
+  .delete(routePhone.deletePhones);
 
-// get all phones (localhost:8080/api/phones)
-.get(routePhone.getPhones)
-
-
-// delete all fucking phones
-//.delete(routePhone.deletePhones);
 
 router.route('/users/:user_id/phones/:phone_id')
-  // get the phone with this id. 
-  //Accessed at GET http://localhost:8080/api/phones/:phone_id
   .get(routePhone.getPhone)
   //update the phone that has this id
   //Accessed by PUT http://localhost:8080/api/phones/:phone_id

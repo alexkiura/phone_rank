@@ -17,20 +17,25 @@
     </div>
     <table class="table table-bordered table-striped" ng-show="user.phones">
         <thead>
-            <tr>
+            <tr>    
+
                 <th>Name</th>
-                <th>Operating system</th>
-                <th>Screen Size</th>
-                <th>Rating (out of 10)</th>
+                <th>CPU Speed</th>
+                <th>RAM</th>
+                <th>Year Manufactured</th>
+                <th>Battery Life (Talk time)</th>
+                <th>Rank</th> 
                 <th class="col-sm-2"></th>
             </tr>
         </thead>
         <tbody>
             <tr data-ng-repeat="phone in user.phones">
                 <td>{{phone.phone_name}}</td>
-                <td>{{phone.os}}</td>
-                <td>{{phone.screen_size}} ''</td>
-                <td>{{phone.rating}}</td>
+                <td>{{phone.cpu_speed}} Ghz</td>
+                <td>{{phone.ram}} Gb</td>
+                <td>{{phone.year}}</td>
+                <td>{{phone.battery_life}} hours</td>
+                <td>{{user.phones.indexOf(phone) + 1}}</td>
                 <td class="col-sm-2">
                     <a ng-href="/users/{{main.user.id}}/phones/{{phone._id}}/" class="btn btn-primary">Edit</a>
                     <a href="#" ng-click="user.deletePhone(phone._id)" class="btn btn-danger">Delete</a>

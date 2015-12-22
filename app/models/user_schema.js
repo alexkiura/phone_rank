@@ -8,10 +8,18 @@ var bcrypt = require('bcrypt-nodejs');
 // Define a phone schema that will be embedded in the userSchema
 
 var PhoneSchema = new mSchema({
-  phone_name: String,
-  os: String,
-  screen_size: Number,
-  rating: Number,
+  phone_name: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
+  cpu_speed: Number,
+  ram: Number,
+  year: Number,
+  battery_life: Number,
+  score: Number,
 });
 
 var UserSchema = new mSchema({
@@ -26,7 +34,7 @@ var UserSchema = new mSchema({
     }
   },
   // the select:false attribute ensures the password 
-  // is not returned when we query users unless explicitly requested	
+  // is not returned when we query users unless explicitly requested  
   password: {
     type: String,
     required: true,

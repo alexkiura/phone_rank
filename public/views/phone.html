@@ -4,6 +4,14 @@
     <h1 ng-if="user.type == 'edit'">Edit Phone</h1>
 </div>
 
+<!--  // if (req.body.name !! )
+  // phone_name: String,
+  // cpu_speed: Number,
+  // ram: Number,
+  // year: Number,  
+  // battery_life: Number,
+  // rating: Number, -->
+
 <form ng-submit="user.savePhone()" class="form-horizontal">
     <div class="form-group">
         <label class="col-sm-2 control-label">Name</label>
@@ -12,21 +20,27 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Operating System</label>
+        <label class="col-sm-2 control-label">CPU Speed</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="user.phoneData.os">
+            <input type="text" class="form-control" ng-model="user.phoneData.cpu_speed">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Screen Size</label>
+        <label class="col-sm-2 control-label">RAM (Gb)</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="user.phoneData.screen_size">
+            <input type="text" class="form-control" ng-model="user.phoneData.ram">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Rating</label>
+        <label class="col-sm-2 control-label">Year</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="user.phoneData.rating">
+            <input type="text" class="form-control" ng-model="user.phoneData.year">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Battery Life (Hours)</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" ng-model="user.phoneData.battery_life">
         </div>
     </div>
     <div class="form-group">
