@@ -15,7 +15,7 @@ angular.module('mainCtrl', [])
         Auth.getUser()
           .then(function(response) {
             vm.user = response.data;
-            console.log("The logged in user is: " + vm.user.name);
+            console.log('The logged in user is: ' + vm.user.name);
           });
       });
 
@@ -32,7 +32,7 @@ angular.module('mainCtrl', [])
           // if a user specifically logs in, redirect to users page
           if (response.data.success) {
             vm.loggedIn = true;
-            console.log("Logging the response: ");
+            console.log('Logging the response: ');
             console.log(response.data);
             $location.path('/users/' + response.data.id + '/phones/' );
           } else

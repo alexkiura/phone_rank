@@ -74,6 +74,7 @@ angular.module('userCtrl', ['userService'])
       vm.userData = response.data;
     });
 
+
   // function to save the user
   vm.saveUser = function() {
     vm.processing = true;
@@ -118,7 +119,7 @@ angular.module('userCtrl', ['userService'])
         });
         $location.path('/users/' + $routeParams.user_id + '/phones/');
       });
-    
+
   };
 
 })
@@ -131,7 +132,7 @@ angular.module('userCtrl', ['userService'])
     vm.processing = true;
 
     vm.message = '';
-    console.log("The user id is: " + $routeParams.user_id);
+    console.log('The user id is: ' + $routeParams.user_id);
     // use the create function in the userService
     User.createPhone($routeParams.user_id, vm.phoneData)
       .then(function(response) {
@@ -143,7 +144,7 @@ angular.module('userCtrl', ['userService'])
         $location.path('/users/' + $routeParams.user_id + '/phones/');
       });
   };
-  
+
 })
 
 .controller('editPhoneController',
@@ -154,7 +155,7 @@ angular.module('userCtrl', ['userService'])
     // get the user data for the user we want to edit
     User.getPhone($routeParams.user_id, $routeParams.phone_id)
       .then(function(response) {
-        console.log("Details of the phone to edit");
+        console.log('Details of the phone to edit');
         console.log(response.data);
         vm.phoneData = response.data;
       });
@@ -175,9 +176,7 @@ angular.module('userCtrl', ['userService'])
           // bind the message from the api to vm.message
           vm.message = response.data.message;
           $location.path('/users/' + $routeParams.user_id + '/phones/');
-
         })
     };
-    
 
   })

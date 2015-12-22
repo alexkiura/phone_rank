@@ -1,40 +1,33 @@
 // Server.js
 // pull in needed modules
-var mongoose = require("mongoose");
-var express = require("express");
+var mongoose = require('mongoose');
+var express = require('express');
 var app = express();
-var path = require("path");
-var bodyParser = require("body-parser");
-var morgan = require("morgan");
-
-
+var path = require('path');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var config = require('./config');
 
 // get the ROUTES
-var routePhone = require("./app/routes/phones");
-var routeUser = require("./app/routes/users");
-
-
+var routePhone = require('./app/routes/phones');
+var routeUser = require('./app/routes/users');
 
 // pull in the schemas
-var Phone = require("./app/models/user_schema").PhoneModel;
-var User = require("./app/models/user_schema").UserModel;
-
+var Phone = require('./app/models/user_schema').PhoneModel;
+var User = require('./app/models/user_schema').UserModel;
 
 mongoose.connect(
-  //"mongodb://localhost/api_test"
-  "mongodb://alex:mongolo@ds051903.mongolab.com:51903/p_shop"
-);
+  config.db);
+//'mongodb://alex:mongolo@ds051903.mongolab.com:51903/p_shop');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console,
   'connection error:'));
 db.once('open', function() {
-  console.log(
-    "Connected successfully to database:");
+  console.log('Connected successfully to database:');
 });
 
-app.use(express.static(path.join(__dirname,
-  'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // for grabbing info from POST requests
 app.use(bodyParser.urlencoded({
@@ -45,42 +38,36 @@ app.use(bodyParser.json());
 // configure the app to handle CORS 
 // Crosss Origin Resource Sharing requests
 app.use(function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin",
-    "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With, content-type, \
-  Authorization"
-  );
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
   next();
 });
 
 //log all requests to the console
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
 
 var router = express.Router();
 
 //route for authenticating users
-router.post("/authenticate", routeUser.authenticateUser);
+router.post('/authenticate', routeUser.authenticateUser);
 
 // middleware to verify the token that was passed
 router.use(routeUser.verifyToken);
 // the index route 
-router.get("/", function(req, res) {
+router.get('/', function(req, res) {
   res.json({
-    "Message": "Welcome",
-    "API": "phone_shop",
-    "version": "0.0.1",
-    "author": "github.com/alexkiura"
+    Message: 'Welcome',
+    API: 'phone_shop',
+    version: '0.0.1',
+    author: 'github.com/alexkiura'
+
   });
 });
 
 // /api/phones
-router.route("/users/:user_id/phones")
+router.route('/users/:user_id/phones')
   .post(routePhone.postPhone)
 
 // get all phones (localhost:8080/api/phones)
@@ -90,7 +77,7 @@ router.route("/users/:user_id/phones")
 // delete all fucking phones
 //.delete(routePhone.deletePhones);
 
-router.route("/users/:user_id/phones/:phone_id")
+router.route('/users/:user_id/phones/:phone_id')
   // get the phone with this id. 
   //Accessed at GET http://localhost:8080/api/phones/:phone_id
   .get(routePhone.getPhone)
@@ -101,32 +88,26 @@ router.route("/users/:user_id/phones/:phone_id")
   .delete(routePhone.deletePhone);
 
 // api/users
-router.route("/users")
+router.route('/users')
   .get(routeUser.getUsers)
   .post(routeUser.postUser);
 
-
 // api/users/:user_id
-router.route("/users/:user_id")
+router.route('/users/:user_id')
   // get a user using the id
   .get(routeUser.getUser)
   .put(routeUser.putUser)
   .delete(routeUser.deleteUser);
 
-
-router.get("/me", routeUser.getDecoded);
+router.get('/me', routeUser.getDecoded);
 // register the routes
-app.use("/api", router);
+app.use('/api', router);
 
-
-app.get("*", function(req, res) {
-  //console.log(path.join(__dirname + "/public/app/views/index.html"));
-  res.sendFile(path.join(__dirname +
-    "/public/index.html"));
-
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 })
 
 //start server
-var port = process.env.PORT || 1738;
+var port = process.env.PORT || config.port;
 app.listen(port);
-console.log("listening on port " + port);
+console.log('listening on port ' + port);

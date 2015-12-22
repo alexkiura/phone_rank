@@ -1,10 +1,10 @@
-var User = require("../models/user_schema").UserModel;
-var Phone = require("../models/user_schema").PhoneModel;
+var User = require('../models/user_schema').UserModel;
+var Phone = require('../models/user_schema').PhoneModel;
 var phones = require('./phones');
-var jwt = require("jsonwebtoken");
-var uuid = require("node-uuid");
+var jwt = require('jsonwebtoken');
+var uuid = require('node-uuid');
 var supersecret = //uuid.v4();
-  "api_test45727617$randomsecretcode";
+  'api_test45727617$randomsecretcode';
 
 exports.postUser = function(req, res) {
   // new instance of the user model
@@ -23,18 +23,22 @@ exports.postUser = function(req, res) {
         if (err.code = 11000) {
           return res.json({
             success: false,
-            message: "A user with that username already exists."
+            message: 'A user with that username already exists.'
+
           });
         } else {
           return res.send(err);
         }
       }
       res.json({
-        message: "user successfully created."
+        message: 'user successfully created.'
+
       });
     })
   }
-  res.json({message: "A user must have a Username or Name."})
+  res.json({
+    message: 'A user must have a Username or Name.'
+  })
 
 };
 
@@ -78,7 +82,8 @@ exports.putUser = function(req, res) {
       if (err) res.send(err);
 
       res.json({
-        message: "User info updated successfully"
+        message: 'User info updated successfully'
+
       });
     });
 
@@ -91,7 +96,8 @@ exports.deleteUser = function(req, res) {
   }, function(err, user) {
     if (err) return res.send(err);
     res.json({
-      message: "USer successfully deleted"
+      message: 'USer successfully deleted'
+
     });
   });
 };
@@ -108,8 +114,7 @@ exports.authenticateUser = function(req, res) {
 
   if (!authData.username) {
     userRes.success = false;
-    userRes.message =
-      "Authentication failed. You did not provide a username";
+    userRes.message = 'Authentication failed. You did not provide a username';
 
     res.send(userRes);
 
@@ -117,26 +122,23 @@ exports.authenticateUser = function(req, res) {
 
   User.findOne({
       username: authData.username // get the user with the provided username
-    }, "name username password", // get me his name, username and ofcourse password
+    }, 'name username password', // get me his name, username and ofcourse password
     function(err, user) { // and lastly, do as i say :)
       if (err) {
         userRes.success = false;
-        userRes.message =
-          "Authentication failed. Please try again";
+        userRes.message = 'Authentication failed. Please try again';
         throw err;
       }
 
       // no user with that username was found
       if (!user) {
         userRes.success = false;
-        userRes.message =
-          "Authentication failed. User not found";
+        userRes.message = 'Authentication failed. User not found';
       } else if (user) {
         // check if password matches
         if (!authData.password) {
           userRes.success = false;
-          userRes.message =
-            "Authentication failed. You did not provide a password";
+          userRes.message = 'Authentication failed. You did not provide a password';
         }
 
         var validPassword = user.comparePassword(
@@ -144,8 +146,7 @@ exports.authenticateUser = function(req, res) {
 
         if (!validPassword) {
           userRes.success = false;
-          userRes.message =
-            "Authentication failed. Wrong password";
+          userRes.message = 'Authentication failed. Wrong password';
           res.json(userRes);
         } else {
           // if password found
@@ -160,8 +161,7 @@ exports.authenticateUser = function(req, res) {
 
           // return the info as token including token
           userRes.success = true;
-          userRes.message =
-            "Enjoy your token";
+          userRes.message = 'Enjoy your token';
           userRes.token = token;
           userRes.id = user._id;
           res.json(userRes);
@@ -172,8 +172,7 @@ exports.authenticateUser = function(req, res) {
 
 exports.verifyToken = function(req, res, next) {
   // check header or url parameters or post parameters for token
-  var token = req.body.token || req.param(
-    "token") || req.headers["x-access-token"];
+  var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
   // decode token
   if (token) {
@@ -183,7 +182,8 @@ exports.verifyToken = function(req, res, next) {
       if (err) {
         return res.status(403).send({
           success: false,
-          message: "Failed to authenticate token."
+          message: 'Failed to authenticate token.'
+
         });
       } else {
         // save to request for use in other routes
@@ -197,7 +197,8 @@ exports.verifyToken = function(req, res, next) {
     // return an access forbidden request
     return res.status(403).send({
       success: false,
-      message: "Access denied. Please provide a token"
+      message: 'Access denied. Please provide a token'
+
     });
   }
 }
