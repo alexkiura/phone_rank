@@ -31,6 +31,7 @@ angular.module('mainCtrl', [])
           vm.processing = false;
           // if a user specifically logs in, redirect to users page
           if (response.data.success) {
+            vm.loggedIn = true;
             console.log("Logging the response: ");
             console.log(response.data);
             $location.path('/users/' + response.data.id + '/phones/' );
@@ -47,6 +48,7 @@ angular.module('mainCtrl', [])
       Auth.logout();
       //reset all user info
       vm.user = {};
+      vm.loggedIn = false;
       $location.path('/login');
     };
 

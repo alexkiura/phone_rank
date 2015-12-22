@@ -11,29 +11,31 @@ exports.postUser = function(req, res) {
   var user = new User();
 
   // obtain the user information from the incoming request
-  user.name = req.body.name;
-  user.username = req.body.username;
-  user.password = req.body.password;
-  //user.phones = ["fuck"];
+  if (!req.body.name || !req.body.username) {
+    user.name = req.body.name;
+    user.username = req.body.username;
+    user.password = req.body.password;
 
-
-  // save the user 
-  user.save(function(err) {
-    if (err) {
-      // duplicate entry
-      if (err.code = 11000) {
-        return res.json({
-          success: false,
-          message: "A user with that username already exists."
-        });
-      } else {
-        return res.send(err);
+    // save the user 
+    user.save(function(err) {
+      if (err) {
+        // duplicate entry
+        if (err.code = 11000) {
+          return res.json({
+            success: false,
+            message: "A user with that username already exists."
+          });
+        } else {
+          return res.send(err);
+        }
       }
-    }
-    res.json({
-      message: "user successfully created"
-    });
-  })
+      res.json({
+        message: "user successfully created."
+      });
+    })
+  }
+  res.json({message: "A user must have a Username or Name."})
+
 };
 
 exports.getUsers = function(req, res) {
@@ -69,7 +71,7 @@ exports.putUser = function(req, res) {
       req.body.username;
     if (req.body.password) user.password =
       req.body.password;
-    
+
 
     // save the new user details
     user.save(function(err) {
@@ -109,7 +111,7 @@ exports.authenticateUser = function(req, res) {
     userRes.message =
       "Authentication failed. You did not provide a username";
 
-      res.send(userRes);
+    res.send(userRes);
 
   }
 
@@ -134,23 +136,24 @@ exports.authenticateUser = function(req, res) {
         if (!authData.password) {
           userRes.success = false;
           userRes.message =
-            "Authentication failed. You did not provide a password";         
-        } 
-        
+            "Authentication failed. You did not provide a password";
+        }
+
         var validPassword = user.comparePassword(
-            authData.password);
+          authData.password);
 
         if (!validPassword) {
           userRes.success = false;
           userRes.message =
             "Authentication failed. Wrong password";
-            res.json(userRes);
+          res.json(userRes);
         } else {
           // if password found
           //create a token
           var token = jwt.sign({
             name: user.name,
-            username: user.username
+            username: user.username,
+            id: user._id
           }, supersecret, {
             expiresInMinutes: 1440 // after 24 hours
           });
@@ -164,7 +167,7 @@ exports.authenticateUser = function(req, res) {
           res.json(userRes);
         }
       }
-    });  
+    });
 };
 
 exports.verifyToken = function(req, res, next) {

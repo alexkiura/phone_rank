@@ -4,6 +4,7 @@ var User = require("../models/user_schema").UserModel;
 
 exports.postPhone = function(req, res) {
   var phone = {};
+ // if (req.body.name !! )
   phone.phone_name = req.body.phone_name;
   phone.os = req.body.os;
   phone.screen_size = req.body.screen_size;
@@ -24,7 +25,7 @@ exports.postPhone = function(req, res) {
 
 exports.getPhones = function(req, res) {
   User.findById(req.params.user_id, function(
-    err, user) {
+    err, user) {  
     if (err) res.send(err);
     res.json(user.phones);
   })

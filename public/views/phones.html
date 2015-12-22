@@ -1,41 +1,42 @@
-<div class="page-header">
-    <h1>
+
+<!-- Phone data to be displayed if user is logged in. -->
+<div >
+    <div class="page-header">
+        <h1>
     Phones
-    <a href="/phones/create" class="btn btn-default">
+    <a ng-href="/users/{{main.user.id}}/phones/create" class="btn btn-default">
         <span class="glyphicon glyphicon-plus"></span>
         New Phone
     </a>
     </h1>
+    </div>
+    <!-- Loading message -->
+    <div class="jumbotron text-center" ng-show="user.processing">
+        <span class="glyphicon glyphicon-repeat spinner"></span>
+        <p>Loading Phones...</p>
+    </div>
+    <table class="table table-bordered table-striped" ng-show="user.phones">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Operating system</th>
+                <th>Screen Size</th>
+                <th>Rating (out of 10)</th>
+                <th class="col-sm-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat="phone in user.phones">
+                <td>{{phone.phone_name}}</td>
+                <td>{{phone.os}}</td>
+                <td>{{phone.screen_size}} ''</td>
+                <td>{{phone.rating}}</td>
+                <td class="col-sm-2">
+                    <a ng-href="/users/{{main.user.id}}/phones/{{phone._id}}/" class="btn btn-primary">Edit</a>
+                    <a href="#" ng-click="user.deletePhone(phone._id)" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+        <p ng-if="user.phones.length == '0'">It's lonely in here. Let's add some of your favorite phones to this list </p>
+    </table>
 </div>
-<!-- Loading message -->
-<div class="jumbotron text-center" ng-show="user.processing">
-    <span class="glyphicon glyphicon-repeat spinner"></span>
-    <p>Loading Phones...</p>
-</div>
-<table class="table table-bordered table-striped" ng-show="user.phones">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Operating system</th>
-            <th>Screen Size</th>
-            <th>Rating (out of 10)</th>
-            <th class="col-sm-2"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr data-ng-repeat="phone in user.phones">
-            
-            <td>{{phone.phone_name}}</td>
-            <td>{{phone.os}}</td>
-            <td>{{phone.screen_size}} ''</td>
-            <td>{{phone.rating}}</td>
-            <td class="col-sm-2">
-                <a ng-href="/users/{{user.id}}/{{phone._id}}" class="btn btn-primary">Edit</a>
-                <a href="#" ng-click="user.deleteUser(phone._id)" class="btn btn-danger">Delete</a>
-            </td>
-
-        </tr>
-
-    </tbody>
-    <p ng-if="user.phones.length == '0'">It's lonely in here. Let's add some of your favorite phones to this list </p>
-</table>

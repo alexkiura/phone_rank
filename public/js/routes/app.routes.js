@@ -4,7 +4,9 @@ angular.module('app.routes', ['ngRoute'])
     $routeProvider
     // home page route
       .when('/', {
-      templateUrl: 'views/home.html'
+      templateUrl: 'views/home.html',
+      controller: 'phoneController',
+      controllerAs: 'user'
     })
       .when('/login', {
         templateUrl: 'views/login.html',
@@ -32,16 +34,21 @@ angular.module('app.routes', ['ngRoute'])
       })
       .when('/users/:user_id/phones', {
         templateUrl: 'views/phones.html',
-        controller: 'userPhoneController',
+        controller: 'phoneController',
         controllerAs: 'user'
       })
 
-      // .when('user/:user_id/phones/create', {
-      //   templateUrl: 'views/phone/html',
-      //   controller: 'userCreateController',
-      //   controllerAs 'user'
-      // })
-;
+      .when('/users/:user_id/phones/create', {
+        templateUrl: 'views/phone.html',
+        controller: 'createPhoneController',
+        controllerAs: 'user'
+      })
+
+      .when('/users/:user_id/phones/:phone_id', {
+        templateUrl: 'views/phone.html',
+        controller: 'editPhoneController',
+        controllerAs: 'user'
+      });
 
 
 

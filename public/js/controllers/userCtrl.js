@@ -3,7 +3,7 @@ angular.module('userCtrl', ['userService'])
 // user controller for the main page
 // inject user factory
 
-.controller('userController', function(User) {
+.controller('userController', function(User, Auth) {
   var vm = this;
 
   // variable for loading things
@@ -34,7 +34,6 @@ angular.module('userCtrl', ['userService'])
           });
       });
   }
-
 })
 
 // controller applied ti create a user
@@ -96,16 +95,89 @@ angular.module('userCtrl', ['userService'])
 
 })
 
-.controller('userPhoneController', function(
-  $routeParams, User) {
+.controller('phoneController', function(
+  $routeParams, $location, User, Auth) {
   var vm = this;
-  //vm.processing = true; 
+  vm.loggedIn = Auth.isLoggedIn();
+  vm.processing = true;
 
   User.getPhones($routeParams.user_id)
     .then(function(response) {
-      console.log("Logging phones");
-      console.log(response.data);
+      vm.processing = false;
       vm.phones = response.data;
     });
 
+  vm.deletePhone = function(phone_id) {
+
+    User.deletePhone($routeParams.user_id, phone_id)
+      .then(function(response) {
+        vm.processing = true;
+        User.getPhones($routeParams.user_id).then(function(response) {
+          vm.processing = false;
+          vm.phones = response.data;
+        });
+        $location.path('/users/' + $routeParams.user_id + '/phones/');
+      });
+    
+  };
+
 })
+
+.controller('createPhoneController', function($routeParams, $location, User) {
+  var vm = this;
+  vm.type = 'create';
+  vm.savePhone = function() {
+
+    vm.processing = true;
+
+    vm.message = '';
+    console.log("The user id is: " + $routeParams.user_id);
+    // use the create function in the userService
+    User.createPhone($routeParams.user_id, vm.phoneData)
+      .then(function(response) {
+        vm.processing = false;
+
+        // clear the form
+        vm.phoneData = {};
+        vm.message = response.data.message;
+        $location.path('/users/' + $routeParams.user_id + '/phones/');
+      });
+  };
+  
+})
+
+.controller('editPhoneController',
+  function($routeParams, $location, User) {
+    var vm = this;
+    vm.type = 'edit';
+
+    // get the user data for the user we want to edit
+    User.getPhone($routeParams.user_id, $routeParams.phone_id)
+      .then(function(response) {
+        console.log("Details of the phone to edit");
+        console.log(response.data);
+        vm.phoneData = response.data;
+      });
+
+    // function to save the user
+    vm.savePhone = function() {
+      vm.processing = true;
+      vm.message = '';
+
+      // call the userServie function to update
+      User.updatePhone($routeParams.user_id, $routeParams.phone_id, vm.phoneData)
+        .then(function(response) {
+          vm.processing = false;
+
+          // clear the form
+          vm.phoneData = {};
+
+          // bind the message from the api to vm.message
+          vm.message = response.data.message;
+          $location.path('/users/' + $routeParams.user_id + '/phones/');
+
+        })
+    };
+    
+
+  })

@@ -1,38 +1,46 @@
+
 <div class="page-header">
-    <h1 ng-if="user.type == 'create'">Create User</h1>
-    <h1 ng-if="user.type == 'edit'">Edit User</h1>
+    <h1 ng-if="user.type == 'create'">Create Phone</h1>
+    <h1 ng-if="user.type == 'edit'">Edit Phone</h1>
 </div>
-<form ng-submit="user.saveUser()" class="form-horizontal">
+
+<form ng-submit="user.savePhone()" class="form-horizontal">
     <div class="form-group">
         <label class="col-sm-2 control-label">Name</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="user.userData.name">
+            <input type="text" class="form-control" ng-model="user.phoneData.phone_name">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Username</label>
+        <label class="col-sm-2 control-label">Operating System</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" ng-model="user.userData.username">
+            <input type="text" class="form-control" ng-model="user.phoneData.os">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Password</label>
+        <label class="col-sm-2 control-label">Screen Size</label>
         <div class="col-sm-6">
-            <input type="password" class="form-control" ng-model="user.userData.password">
+            <input type="text" class="form-control" ng-model="user.phoneData.screen_size">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Rating</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" ng-model="user.phoneData.rating">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
             <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'create'">
-                <span ng-if="!user.processing">Create User</span>
+                <span ng-if="!user.processing">Create Phone</span>
                 <span ng-if="user.processing" class="spinner">
-									<span class="glyphicon glyphicon-repeat"></span>
+                                    <span class="glyphicon glyphicon-repeat"></span>
                 </span>
             </button>
             <button type="submit" class="btn btn-success btn-lg btn-block" ng-if="user.type == 'edit'">
-                <span ng-if="!user.processing">Update User</span>
+                <span ng-if="!user.processing">Update Phone</span>
                 <span ng-if="user.processing" class="spinner">
-									<span class="glyphicon glyphicon-repeat"></span>
+                                    <span class="glyphicon glyphicon-repeat"></span>
                 </span>
             </button>
         </div>
@@ -45,3 +53,4 @@
         </div>
     </div>
 </div>
+
