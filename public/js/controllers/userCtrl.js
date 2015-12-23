@@ -53,7 +53,7 @@ angular.module('userCtrl', ['userService'])
     // use the create function in the userService
     User.create(vm.userData)
       .then(function(response) {
-        vm.processing = false;        
+        vm.processing = false;
         // clear the form
         vm.userData = {};
         vm.message = response.data.message;

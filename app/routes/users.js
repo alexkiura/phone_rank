@@ -32,7 +32,6 @@ exports.postUser = function(req, res) {
     }
     res.json({
       message: 'user successfully created.'
-
     });
   });
 

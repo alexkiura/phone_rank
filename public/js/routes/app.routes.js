@@ -4,30 +4,30 @@ angular.module('app.routes', ['ngRoute'])
     $routeProvider
     // home page route
       .when('/', {
-      templateUrl: 'views/home.html',
-      controller: 'phoneController',
-      controllerAs: 'user'
-    })
+        templateUrl: 'views/home.html',
+        controller: 'phoneController',
+        controllerAs: 'user'
+      })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'mainController',
         controllerAs: 'login',
       })
 
-      // show users page
-      .when('/users', {
-        templateUrl: 'views/users.html',
-        controller: 'userController',
-        controllerAs: 'user'
-      })
+    // show users page
+    .when('/users', {
+      templateUrl: 'views/users.html',
+      controller: 'userController',
+      controllerAs: 'user'
+    })
 
-      .when('/users/create', {
-        templateUrl: 'views/user.html',
-        controller: 'userCreateController',
-        controllerAs: 'user'
-      })
+    .when('/users/create', {
+      templateUrl: 'views/user.html',
+      controller: 'userCreateController',
+      controllerAs: 'user'
+    })
 
-      .when('/users/:user_id', {
+    .when('/users/:user_id', {
         templateUrl: 'views/user.html',
         controller: 'userEditController',
         controllerAs: 'user'
@@ -38,17 +38,17 @@ angular.module('app.routes', ['ngRoute'])
         controllerAs: 'user'
       })
 
-      .when('/users/:user_id/phones/create', {
-        templateUrl: 'views/phone.html',
-        controller: 'createPhoneController',
-        controllerAs: 'user'
-      })
+    .when('/users/:user_id/phones/create', {
+      templateUrl: 'views/phone.html',
+      controller: 'createPhoneController',
+      controllerAs: 'user'
+    })
 
-      .when('/users/:user_id/phones/:phone_id', {
-        templateUrl: 'views/phone.html',
-        controller: 'editPhoneController',
-        controllerAs: 'user'
-      });
+    .when('/users/:user_id/phones/:phone_id', {
+      templateUrl: 'views/phone.html',
+      controller: 'editPhoneController',
+      controllerAs: 'user'
+    });
 
 
 

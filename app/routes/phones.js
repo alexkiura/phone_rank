@@ -4,7 +4,7 @@ var calcScore = require('../fxn/phone_score');
 
 exports.postPhone = function(req, res) {
   var phone = {};
-  
+
   phone.phone_name = req.body.phone_name;
   phone.cpu_speed = req.body.cpu_speed;
   phone.ram = req.body.ram;

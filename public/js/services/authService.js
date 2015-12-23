@@ -2,7 +2,7 @@ angular.module('authService', [])
   // =======================================================
   // auth factory to login and get info
   // inject $http for communicating with the API
-  // inject $q to return promise 	objects
+  // inject $q to return promise  objects
   // inject AuthToken to manage tokens
   // =======================================================
   .factory('Auth', function($http, $q, AuthToken) {
@@ -13,7 +13,7 @@ angular.module('authService', [])
     authFactory.login = function(username,
       password) {
       // return the promise object and its data
-      
+
       return $http.post('/api/authenticate', {
           username: username,
           password: password
@@ -41,7 +41,7 @@ angular.module('authService', [])
 
     // get the logged in user
     authFactory.getUser = function() {
-      
+
       if (AuthToken.getToken())
         return $http.get('/api/me');
       else
@@ -95,23 +95,23 @@ angular.module('authService', [])
     var token = AuthToken.getToken();
 
     // if token exists add it to the header as x-access-token
-    if (token) {      
-      config.headers['x-access-token'] = token;   
+    if (token) {
+      config.headers['x-access-token'] = token;
     }
 
-    return config;	
+    return config;
   };
 
   // happens on response errors
   interceptorFactory.responseError = function(response) {
-  	// if our server returns a 403 forbidden response
-  	if (response.status == 403) {
+    // if our server returns a 403 forbidden response
+    if (response.status == 403) {
       AuthToken.setToken();
-  		$location.path('/login');
+      $location.path('/login');
     }
 
-  	// return the errors from the server as a promise
-  	return $q.reject(response);
+    // return the errors from the server as a promise
+    return $q.reject(response);
   };
 
   return interceptorFactory;
