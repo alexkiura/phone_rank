@@ -11,34 +11,30 @@ exports.postUser = function(req, res) {
   var user = new User();
 
   // obtain the user information from the incoming request
-  if (!req.body.name || !req.body.username) {
-    user.name = req.body.name;
-    user.username = req.body.username;
-    user.password = req.body.password;
 
-    // save the user 
-    user.save(function(err) {
-      if (err) {
-        // duplicate entry
-        if (err.code = 11000) {
-          return res.json({
-            success: false,
-            message: 'A user with that username already exists.'
+  user.name = req.body.name;
+  user.username = req.body.username;
+  user.password = req.body.password;
 
-          });
-        } else {
-          return res.send(err);
-        }
+  // save the user 
+  user.save(function(err) {
+    if (err) {
+      // duplicate entry
+      if (err.code = 11000) {
+        return res.json({
+          success: false,
+          message: 'A user with that username already exists.'
+
+        });
+      } else {
+        return res.send(err);
       }
-      res.json({
-        message: 'user successfully created.'
+    }
+    res.json({
+      message: 'user successfully created.'
 
-      });
-    })
-  }
-  res.json({
-    message: 'A user must have a Username or Name.'
-  })
+    });
+  });
 
 };
 

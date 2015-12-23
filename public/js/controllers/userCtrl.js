@@ -37,7 +37,7 @@ angular.module('userCtrl', ['userService'])
 })
 
 // controller applied ti create a user
-.controller('userCreateController', function($routeParams, User) {
+.controller('userCreateController', function($location, User) {
   var vm = this;
   // variable to hide/ show elements of the view
   // differentiates between create or edit pages
@@ -53,13 +53,12 @@ angular.module('userCtrl', ['userService'])
     // use the create function in the userService
     User.create(vm.userData)
       .then(function(response) {
-        vm.processing = false;
-        console.log("The user id is: " + $routeParams.user_id);
-        console.log("The user id is: " + $vm.userData.name);
+        vm.processing = false;        
         // clear the form
         vm.userData = {};
         vm.message = response.data.message;
-        // redirect the user to their phones page
+        // redirect the user to the login page
+        $location.path('/login');
 
       });
   };

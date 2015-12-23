@@ -15,7 +15,7 @@ angular.module('mainCtrl', [])
         Auth.getUser()
           .then(function(response) {
             vm.user = response.data;
-            console.log('The logged in user is: ' + vm.user.name);
+
           });
       });
 
@@ -34,7 +34,7 @@ angular.module('mainCtrl', [])
             vm.loggedIn = true;
             console.log('Logging the response: ');
             console.log(response.data);
-            $location.path('/users/' + response.data.id + '/phones/' );
+            $location.path('/users/' + response.data.id + '/phones/');
           } else
             vm.error = data.message;
         });
