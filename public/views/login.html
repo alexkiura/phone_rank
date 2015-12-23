@@ -1,6 +1,6 @@
 <div class="row col-sm-6 col-sm-offset-3">
     <div class="jumbotron">
-        <h1>Login	</h1>
+        <h1>Login   </h1>
         <form ng-submit="login.doLogin()">
             <!--Username input -->
             <div class="form-group">
@@ -19,8 +19,12 @@
             <button type="submit" class="btn btn-block btn-primary">
                 <span ng-if="!login.processing">Login</span>
                 <span ng-if="login.processing" class="spinner">
-				<span class="glyphicon glyphicon-repeat"></span></span>
+                <span class="glyphicon glyphicon-repeat"></span></span>
             </button>
         </form>
+        <p>New User?</p>
+        <button type="submit" class="btn btn-block btn-primary">
+            <a href="/users/create">Sign up</a>
+        </button>
     </div>
 </div>
