@@ -1,4 +1,10 @@
-# phone_shop_fs
-A simple MEAN stack app that maintains a personalized list of favorite smartphones.
+# Phone Rank 
 
-The url is: p-shop.herokuapp.com
+## Description
+A simple app that ranks smartphones based on tech specs.
+
+### How it works
+User signs up and creates a list of phones (with different specs)
+Each phone is given a score  based on the specs and then ranked.
+
+Try it ouy [Here](https://phone-rank.herokuapp.com).
