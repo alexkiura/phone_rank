@@ -37,10 +37,7 @@ angular.module('mainCtrl', [])
             $location.path('/users/' + response.data.id + '/phones/' );
           } else
             vm.error = data.message;
-
         });
-
-
     };
 
     // function to handle logging out 
