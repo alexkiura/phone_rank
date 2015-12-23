@@ -17,8 +17,9 @@ var Phone = require('./app/models/user_schema').PhoneModel;
 var User = require('./app/models/user_schema').UserModel;
 
 mongoose.connect(
-  config.db);
-//'mongodb://alex:mongolo@ds051903.mongolab.com:51903/p_shop');
+  //'localhost/api_test');
+  //config.db);
+'mongodb:alex:mongolo@ds051903.mongolab.com:51903/p_shop');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console,
