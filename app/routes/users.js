@@ -134,15 +134,15 @@ exports.authenticateUser = function(req, res) {
         if (!authData.password) {
           userRes.success = false;
           userRes.message = 'Authentication failed. You did not provide a password';
+
         }
 
-        var validPassword = user.comparePassword(
-          authData.password);
+        var validPassword = user.comparePassword(authData.password);
 
         if (!validPassword) {
           userRes.success = false;
           userRes.message = 'Authentication failed. Wrong password';
-          res.json(userRes);
+
         } else {
           // if password found
           //create a token
@@ -159,9 +159,10 @@ exports.authenticateUser = function(req, res) {
           userRes.message = 'Enjoy your token';
           userRes.token = token;
           userRes.id = user._id;
-          res.json(userRes);
+          //res.json(userRes);
         }
       }
+      res.json(userRes);
     });
 };
 
@@ -193,7 +194,6 @@ exports.verifyToken = function(req, res, next) {
     return res.status(403).send({
       success: false,
       message: 'Access denied. Please provide a token'
-
     });
   }
 }

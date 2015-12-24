@@ -36,7 +36,7 @@ angular.module('mainCtrl', [])
             console.log(response.data);
             $location.path('/users/' + response.data.id + '/phones/');
           } else
-            vm.error = data.message;
+            vm.error = response.data.message;
         });
     };
 
